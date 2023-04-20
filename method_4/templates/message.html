@@ -50,6 +50,8 @@
         eventSource.onmessage = (event) => {
             const message = JSON.parse(event.data);
             if (message) {
+
+
                 const listItem = document.createElement('li');
                 if(message.from !== userName){
                 listItem.textContent = `${message.from} - ${message.message}`;

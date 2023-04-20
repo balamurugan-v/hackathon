@@ -1,0 +1,12 @@
+#messageWindow {
+  height: 85vh;
+  overflow: scroll;
+}
+#input {
+  display: flex;
+  gap: 0.5rem;
+}
+#input #messageInput {
+  width: 100%;
+  padding: 0.5rem;
+}

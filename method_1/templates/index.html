@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+
+
+ <meta charset="UTF-8">
+
+
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+ <title>SSE</title>
+
+
+</head>
+
+
+<body>
+
+
+ <h1>SSE</h1>
+
+ <div id="messageWindow"></div>
+
+ <input id="messageInput"></input><button onClick="onSend()">SEND</button>
+
+
+
+ <script>
+
+
+
+  async function onSend(){
+
+   let data = document.getElementById("messageInput");
+
+ let message = data.value;
+
+      const response = await fetch("http://example.com/movies.json",{
+
+   method: "POST",
+
+    body:JSON.stringify({message})
+
+   });
+
+ const jsonData = await response.json();
+
+ console.log(data);
+
+
+
+  }
+  var eventSource = new EventSource("/listen")
+  eventSource.addEventListener("message", function(e) {
+
+
+   console.log(JSON.parse(e.data).message);
+
+   const node = document.createElement("p");
+
+const textnode = document.createTextNode(JSON.parse(e.data).message);
+
+node.appendChild(textnode);
+
+document.getElementById("messageWindow").appendChild(node);
+
+
+  }, false)
+
+
+
+  eventSource.addEventListener("online", function(e) {
+
+
+   // console.log(e.data.color)
+
+
+   console.log(e)
+
+
+   data = JSON.parse(e.data)
+
+
+   document.querySelector("#counter").innerText = data.counter
+
+
+   document.querySelector("body").style.backgroundColor= data.color
+
+
+  }, true)
+
+
+
+ </script>
+
+
+
+</body>
+
+
+</html>
